@@ -3,8 +3,6 @@ const path = require('path');
 
 const app = express();
 
-
-
 //middlewares
 //bodyparser
 app.use(express.json());
@@ -20,8 +18,6 @@ if(process.env.NODE_ENV === "production"){
         res.sendFile(path.join(__dirname , "client" , "build" , "index.html"))
     });
 };
-
-
 
 //listen to port
 const PORT = process.env.PORT || 5000;
