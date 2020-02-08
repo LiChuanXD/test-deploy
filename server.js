@@ -3,7 +3,7 @@ const path = require('path');
 
 const app = express();
 
-app.use('/' , express.static(path.join(__dirname , "client" , "build")));
+
 
 //middlewares
 //bodyparser
@@ -13,10 +13,14 @@ app.use(express.urlencoded({extended : false}));
 //routes
 app.use('/api/todo' , require('./routes/api/todo'));
 
+//production
+if(process.env.NODE_ENV === "production"){
+    app.use('/' , express.static(path.join(__dirname , "client" , "build")));
+    app.get('*' , (req , res)=>{
+        res.sendFile(path.join(__dirname , "client" , "build" , "index.html"))
+    });
+};
 
-app.get('*' , (req , res)=>{
-    res.sendFile(path.join(__dirname , "client" , "build" , "index.html"))
-});
 
 
 //listen to port
